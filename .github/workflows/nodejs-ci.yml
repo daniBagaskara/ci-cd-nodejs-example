@@ -1,32 +1,32 @@
 # .github/workflows/nodejs-ci.yml
 
-name: Node.js CI
+name: Node.js CI/CD
 
 on:
   push:
-    branches: [ main ] # Jalankan workflow saat ada push ke branch 'main'
+    branches: [main]
   pull_request:
-    branches: [ main ] # Jalankan workflow saat ada pull request ke branch 'main'
+    branches: [main]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest # Gunakan runner Ubuntu terbaru yang disediakan GitHub
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4 # Action untuk mengkloning repositori Anda
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18' # Tentukan versi Node.js yang ingin Anda gunakan
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
 
-    - name: Install Dependencies
-      run: npm install # Perintah untuk menginstal dependensi dari package.json
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Run Tests
-      run: npm test # Perintah untuk menjalankan pengujian kita
+      - name: Run Tests
+        run: npm test
 
-    # Jika Anda ingin menambahkan langkah build (walaupun untuk Node.js sederhana ini mungkin tidak ada langkah build kompleks)
-    # - name: Build Application
-    #   run: echo "Build step for Node.js (e.g., webpack, babel) would go here"
+      - name: Run Simulated Deployment
+        # Ini adalah bagian Continuous Delivery/Deployment kita
+        run: ./scripts/deploy.sh # Jalankan skrip deployment yang baru kita buat
